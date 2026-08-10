@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Segurança Digital para Idosos</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ==========================================================================
+           VARIÁVEIS DE CORES E ESTILOS GLOBAIS (Design para Acessibilidade)
+           ========================================================================== */
+        :root {
+            /* Cores de Alto Contraste */
+            --cor-fundo: #F8F9FA;
+            --cor-cartao-fundo: #FFFFFF;
+            --cor-principal: #004D40;       /* Verde Escuro de Fácil Leitura */
+            --cor-principal-hover: #00332C;
+            --cor-texto-principal: #111111; /* Preto Quase Puro para Leitura Nítida */
+            --cor-texto-secundario: #333333;
+            --cor-alerta: #D84315;          /* Laranja/Vermelho para Alertar */
+            --cor-borda: #CCCCCC;
+            --cor-foco-teclado: #0288D1;    /* Azul Claro para Destaque de Foco */
+
+            /* Tamanhos de Fonte Base (Acessíveis) */
+            --fonte-tamanho-base: 20px;
+            --fonte-tamanho-titulo: 32px;
+            --fonte-tamanho-subtitulo: 24px;
+            --espacamento: 20px;
+            --arredondamento-borda: 12px;
+        }
+
+        /* Suporte ao Modo "Texto Grande" via Checkbox (CSS Puro) */
+        #alternar-tamanho-fonte:checked ~ main {
+            --fonte-tamanho-base: 24px;
+            --fonte-tamanho-titulo: 38px;
+            --fonte-tamanho-subtitulo: 28px;
+        }
+
+        /* Configuração de Base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto-principal);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+
+        /* Estilo para focar com o teclado (Acessibilidade) */
+        a:focus, button:focus, input:focus, label:focus {
+            outline: 4px solid var(--cor-foco-teclado);
+            outline-offset: 3px;
+        }
+
+        /* Oculta elementos apenas visualmente mantendo leitura para leitores de tela */
+        .oculto-visualmente {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* ==========================================================================
+           CABEÇALHO E FERRAMENTAS DE ACESSIBILIDADE
+           ========================================================================== */
+        header {
+            background-color: var(--cor-principal);
+            color: #FFFFFF;
+            padding: calc(var(--espacamento) * 1.5) var(--espacamento);
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        header h1 {
+            font-size: var(--fonte-tamanho-titulo);
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        header p {
+            font-size: var(--fonte-tamanho-subtitulo);
+            color: #E0F2F1;
+        }
+
+        /* Barra de Acessibilidade */
+        .barra-acessibilidade {
+            background-color: #E0F2F1;
+            border-bottom: 2px solid var(--cor-borda);
+            padding: 15px var(--espacamento);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .botao-acessibilidade {
+            display: inline-block;
+            background-color: var(--cor-principal);
+            color: #FFFFFF;
+            padding: 12px 24px;
+            font-size: var(--fonte-tamanho-base);
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            text-align: center;
+            border: 2px solid transparent;
+            user-select: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .botao-acessibilidade:hover {
+            background-color: var(--cor-principal-hover);
+        }
+
+        /* ==========================================================================
+           LAYOUT PRINCIPAL E CARTÕES DE DICAS
+           ========================================================================== */
+        main {
+            max-width: 900px;
+            margin: var(--espacamento) auto;
+            padding: 0 var(--espacamento);
+        }
+
+        /* Caixa de Introdução */
+        .caixa-introducao {
+            background-color: #FFF9C4; /* Amarelo Suave para Destaque */
+            border-left: 8px solid #FBC02D;
+            padding: var(--espacamento);
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: var(--fonte-tamanho-base);
+        }
+
+        .caixa-introducao h2 {
+            font-size: var(--fonte-tamanho-subtitulo);
+            color: #574300;
+            margin-bottom: 10px;
+        }
+
+        /* Grade de Cartões */
+        .grade-dicas {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        /* Cartão Individual */
+        .cartao {
+            background-color: var(--cor-cartao-fundo);
+            border: 3px solid var(--cor-borda);
+            border-radius: var(--arredondamento-borda);
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .cartao-cabecalho {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #EEEEEE;
+            padding-bottom: 10px;
+        }
+
+        .cartao-icone {
+            font-size: 40px;
+            line-height: 1;
+        }
+
+        .cartao-titulo {
+            font-size: var(--fonte-tamanho-subtitulo);
+            color: var(--cor-principal);
+        }
+
+        .cartao-corpo {
+            font-size: var(--fonte-tamanho-base);
+            color: var(--cor-texto-principal);
+        }
+
+        .cartao-corpo p {
+            margin-bottom: 15px;
+        }
+
+        /* Listas de Dicas para Fácil Leitura */
+        .lista-dicas {
+            list-style: none;
+            padding: 0;
+        }
+
+        .lista-dicas li {
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .lista-dicas li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--cor-principal);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        /* Caixa de Alerta (O que NÃO fazer) */
+        .caixa-alerta {
+            background-color: #FFEBEE;
+            border: 2px solid var(--cor-alerta);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: var(--fonte-tamanho-base);
+        }
+
+        .caixa-alerta strong {
+            color: var(--cor-alerta);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* ==========================================================================
+           SEÇÃO DE EMERGÊNCIA E AJUDA
+           ========================================================================== */
+        .secao-emergencia {
+            background-color: #E8EAF6;
+            border: 3px solid #3F51B5;
+            border-radius: var(--arredondamento-borda);
+            padding: 25px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .secao-emergencia h2 {
+            font-size: var(--fonte-tamanho-subtitulo);
+            color: #1A237E;
+            margin-bottom: 10px;
+        }
+
+        .secao-emergencia p {
+            font-size: var(--fonte-tamanho-base);
+            margin-bottom: 20px;
+        }
+
+        .contatos-ajuda {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .botao-contato {
+            display: inline-block;
+            width: 100%;
+            max-width: 400px;
+            background-color: #1A237E;
+            color: #FFFFFF;
+            padding: 16px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: var(--fonte-tamanho-base);
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+
+        .botao-contato:hover {
+            background-color: #0D47A1;
+        }
+
+        /* ==========================================================================
+           RODAPÉ
+           ========================================================================== */
+        footer {
+            text-align: center;
+            padding: 30px var(--espacamento) 10px var(--espacamento);
+            font-size: var(--fonte-tamanho-base);
+            color: var(--cor-texto-secundario);
+            margin-top: 40px;
+            border-top: 1px solid var(--cor-borda);
+        }
+
+        /* ==========================================================================
+           ADAPTAÇÃO PARA TELAS MAIORES (TABLETS E COMPUTADORES)
+           ========================================================================== */
+        @media (min-width: 768px) {
+            .contatos-ajuda {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .botao-contato {
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Controle de Tamanho de Fonte (Sem JavaScript) -->
+    <input type="checkbox" id="alternar-tamanho-fonte" class="oculto-visualmente">
+
+    <!-- Cabeçalho Principal -->
+    <header>
+        <h1>Segurança na Internet</h1>
+        <p>Guia Prático e Fácil para o Dia a Dia</p>
+    </header>
+
+    <!-- Barra de Ferramentas de Acessibilidade -->
+    <div class="barra-acessibilidade" role="region" aria-label="Controles de Acessibilidade">
+        <label for="alternar-tamanho-fonte" class="botao-acessibilidade" tabindex="0" role="button" aria-pressed="false">
+            🔍 Aumentar / Diminuir Texto
+        </label>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        
+        <!-- Mensagem de Boas-Vindas -->
+        <section class="caixa-introducao">
+            <h2>Bem-vindo(a)!</h2>
+            <p>Usar o celular e a internet é maravilhoso para conversar com a família e resolver coisas do dia a dia. Este guia foi feito para ajudar você a navegar com total <strong>tranquilidade</strong> e <strong>segurança</strong>.</p>
+        </section>
+
+        <!-- Grade com as Dicas de Segurança -->
+        <div class="grade-dicas">
+
+            <!-- Dica 1: Mensagens e WhatsApp -->
+            <article class="cartao">
+                <div class="cartao-cabecalho">
+                    <span class="cartao-icone" aria-hidden="true">💬</span>
+                    <h2 class="cartao-titulo">1. Cuidado no WhatsApp e Mensagens</h2>
+                </div>
+                <div class="cartao-corpo">
+                    <p>Golpistas podem se passar por familiares ou amigos usando um número de telefone novo.</p>
+                    <ul class="lista-dicas">
+                        <li>Se alguém pedir dinheiro pelo WhatsApp, <strong>ligue para a pessoa</strong> no número antigo para confirmar.</li>
+                        <li>Nunca envie códigos que chegaram por SMS no seu celular para ninguém.</li>
+                    </ul>
+                    <div class="caixa-alerta">
+                        <strong>⚠️ Regra de Ouro:</strong>
+                        Filhos ou netos raramente vão pedir dinheiro urgente por mensagem sem falar com você por voz antes!
+                    </div>
+                </div>
+            </article>
+
+            <!-- Dica 2: Senhas e Códigos -->
+            <article class="cartao">
+                <div class="cartao-cabecalho">
+                    <span class="cartao-icone" aria-hidden="true">🔑</span>
+                    <h2 class="cartao-titulo">2. Suas Senhas são Secretas</h2>
+                </div>
+                <div class="cartao-corpo">
+                    <p>A sua senha é como a chave da sua casa: só você deve ter acesso.</p>
+                    <ul class="lista-dicas">
+                        <li>Anote suas senhas em um caderno seguro mantido em casa, nunca no celular.</li>
+                        <li>Evite usar datas de aniversário fáceis ou sequências como "123456".</li>
+                        <li>Bancos <strong>nunca</strong> ligam pedindo sua senha ou código do cartão.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Dica 3: Links e Cliques -->
+            <article class="cartao">
+                <div class="cartao-cabecalho">
+                    <span class="cartao-icone" aria-hidden="true">🔗</span>
+                    <h2 class="cartao-titulo">3. Cuidado com Links Estranhos</h2>
+                </div>
+                <div class="cartao-corpo">
+                    <p>Sorteios, prêmios grandes ou mensagens alarmantes sobre sua conta bancária costumam ser mentiras.</p>
+                    <ul class="lista-dicas">
+                        <li>Não clique em links (endereços azuis) enviados por desconhecidos.</li>
+                        <li>Duvide de promoções com preços incrivelmente baixos.</li>
+                        <li>Na dúvida, peça para alguém de sua confiança dar uma olhada antes de clicar.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Dica 4: Ligações de Banco -->
+            <article class="cartao">
+                <div class="cartao-cabecalho">
+                    <span class="cartao-icone" aria-hidden="true">📞</span>
+                    <h2 class="cartao-titulo">4. Ligação Falsa do Banco</h2>
+                </div>
+                <div class="cartao-corpo">
+                    <p>Muitos golpistas ligam dizendo que há uma compra suspeita no seu cartão.</p>
+                    <ul class="lista-dicas">
+                        <li>Se receber esse tipo de ligação, <strong>desligue imediatamente</strong>.</li>
+                        <li>Não ligue para o número que eles informarem. Ligue apenas para o número que está atrás do seu cartão bancário.</li>
+                        <li>Nenhum banco manda motoboy buscar seu cartão em casa. Se falarem isso, é golpe!</li>
+                    </ul>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- Seção de Ajuda e Telefones Úteis -->
+        <section class="secao-emergencia">
+            <h2>Está em Dúvida ou Acha que Clicou em Algo Errado?</h2>
+            <p>Mantenha a calma! O mais importante é agir rápido e pedir apoio.</p>
+            <div class="contatos-ajuda">
+                <a href="tel:190" class="botao-contato">📞 Ligue 190 (Polícia Militar)</a>
+                <a href="#" class="botao-contato">🏦 Falar com o seu Banco</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>Compartilhe este guia com seus amigos e familiares. A segurança começa com a informação!</p>
+    </footer>
+
+</body>
+</html>
