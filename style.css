@@ -1,0 +1,297 @@
+/* ==========================================================================
+   VARIÁVEIS DE CORES E ESTILOS GLOBAIS (Design para Acessibilidade)
+   ========================================================================== */
+:root {
+    /* Cores de Alto Contraste */
+    --cor-fundo: #F8F9FA;
+    --cor-cartao-fundo: #FFFFFF;
+    --cor-principal: #004D40;       /* Verde Escuro de Fácil Leitura */
+    --cor-principal-hover: #00332C;
+    --cor-texto-principal: #111111; /* Preto Quase Puro para Leitura Nítida */
+    --cor-texto-secundario: #333333;
+    --cor-alerta: #D84315;          /* Laranja/Vermelho para Alertar */
+    --cor-borda: #CCCCCC;
+    --cor-foco-teclado: #0288D1;    /* Azul Claro para Destaque de Foco */
+
+    /* Tamanhos de Fonte Base (Acessíveis) */
+    --fonte-tamanho-base: 20px;
+    --fonte-tamanho-titulo: 32px;
+    --fonte-tamanho-subtitulo: 24px;
+    --espacamento: 20px;
+    --arredondamento-borda: 12px;
+}
+
+/* Suporte ao Modo "Texto Grande" via Checkbox (CSS Puro) */
+#alternar-tamanho-fonte:checked ~ main {
+    --fonte-tamanho-base: 24px;
+    --fonte-tamanho-titulo: 38px;
+    --fonte-tamanho-subtitulo: 28px;
+}
+
+/* Configuração de Base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto-principal);
+    line-height: 1.6;
+    padding-bottom: 40px;
+}
+
+/* Estilo para focar com o teclado (Acessibilidade) */
+a:focus, button:focus, input:focus, label:focus {
+    outline: 4px solid var(--cor-foco-teclado);
+    outline-offset: 3px;
+}
+
+/* Oculta elementos apenas visualmente mantendo leitura para leitores de tela */
+.oculto-visualmente {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* ==========================================================================
+   CABEÇALHO E FERRAMENTAS DE ACESSIBILIDADE
+   ========================================================================== */
+header {
+    background-color: var(--cor-principal);
+    color: #FFFFFF;
+    padding: calc(var(--espacamento) * 1.5) var(--espacamento);
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+header h1 {
+    font-size: var(--fonte-tamanho-titulo);
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+header p {
+    font-size: var(--fonte-tamanho-subtitulo);
+    color: #E0F2F1;
+}
+
+/* Barra de Acessibilidade */
+.barra-acessibilidade {
+    background-color: #E0F2F1;
+    border-bottom: 2px solid var(--cor-borda);
+    padding: 15px var(--espacamento);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.botao-acessibilidade {
+    display: inline-block;
+    background-color: var(--cor-principal);
+    color: #FFFFFF;
+    padding: 12px 24px;
+    font-size: var(--fonte-tamanho-base);
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    text-align: center;
+    border: 2px solid transparent;
+    user-select: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.botao-acessibilidade:hover {
+    background-color: var(--cor-principal-hover);
+}
+
+/* ==========================================================================
+   LAYOUT PRINCIPAL E CARTÕES DE DICAS
+   ========================================================================== */
+main {
+    max-width: 900px;
+    margin: var(--espacamento) auto;
+    padding: 0 var(--espacamento);
+}
+
+/* Caixa de Introdução */
+.caixa-introducao {
+    background-color: #FFF9C4; /* Amarelo Suave para Destaque */
+    border-left: 8px solid #FBC02D;
+    padding: var(--espacamento);
+    border-radius: 8px;
+    margin-bottom: 30px;
+    font-size: var(--fonte-tamanho-base);
+}
+
+.caixa-introducao h2 {
+    font-size: var(--fonte-tamanho-subtitulo);
+    color: #574300;
+    margin-bottom: 10px;
+}
+
+/* Grade de Cartões */
+.grade-dicas {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+}
+
+/* Cartão Individual */
+.cartao {
+    background-color: var(--cor-cartao-fundo);
+    border: 3px solid var(--cor-borda);
+    border-radius: var(--arredondamento-borda);
+    padding: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.cartao-cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #EEEEEE;
+    padding-bottom: 10px;
+}
+
+.cartao-icone {
+    font-size: 40px;
+    line-height: 1;
+}
+
+.cartao-titulo {
+    font-size: var(--fonte-tamanho-subtitulo);
+    color: var(--cor-principal);
+}
+
+.cartao-corpo {
+    font-size: var(--fonte-tamanho-base);
+    color: var(--cor-texto-principal);
+}
+
+.cartao-corpo p {
+    margin-bottom: 15px;
+}
+
+/* Listas de Dicas para Fácil Leitura */
+.lista-dicas {
+    list-style: none;
+    padding: 0;
+}
+
+.lista-dicas li {
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.lista-dicas li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--cor-principal);
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+/* Caixa de Alerta (O que NÃO fazer) */
+.caixa-alerta {
+    background-color: #FFEBEE;
+    border: 2px solid var(--cor-alerta);
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+    font-size: var(--fonte-tamanho-base);
+}
+
+.caixa-alerta strong {
+    color: var(--cor-alerta);
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* ==========================================================================
+   SEÇÃO DE EMERGÊNCIA E AJUDA
+   ========================================================================== */
+.secao-emergencia {
+    background-color: #E8EAF6;
+    border: 3px solid #3F51B5;
+    border-radius: var(--arredondamento-borda);
+    padding: 25px;
+    margin-top: 40px;
+    text-align: center;
+}
+
+.secao-emergencia h2 {
+    font-size: var(--fonte-tamanho-subtitulo);
+    color: #1A237E;
+    margin-bottom: 10px;
+}
+
+.secao-emergencia p {
+    font-size: var(--fonte-tamanho-base);
+    margin-bottom: 20px;
+}
+
+.contatos-ajuda {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.botao-contato {
+    display: inline-block;
+    width: 100%;
+    max-width: 400px;
+    background-color: #1A237E;
+    color: #FFFFFF;
+    padding: 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: var(--fonte-tamanho-base);
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+}
+
+.botao-contato:hover {
+    background-color: #0D47A1;
+}
+
+/* ==========================================================================
+   RODAPÉ
+   ========================================================================== */
+footer {
+    text-align: center;
+    padding: 30px var(--espacamento) 10px var(--espacamento);
+    font-size: var(--fonte-tamanho-base);
+    color: var(--cor-texto-secundario);
+    margin-top: 40px;
+    border-top: 1px solid var(--cor-borda);
+}
+
+/* ==========================================================================
+   ADAPTAÇÃO PARA TELAS MAIORES (TABLETS E COMPUTADORES)
+   ========================================================================== */
+@media (min-width: 768px) {
+    .contatos-ajuda {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .botao-contato {
+        width: auto;
+    }
+}
